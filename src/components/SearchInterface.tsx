@@ -22,7 +22,9 @@ const SearchInterface = ({ onSearch, isLoading }: SearchInterfaceProps) => {
   const exampleQueries = [
     "He asked me so many ⋯⋯⋯ questions to which I couldn't answer.",
     "There is no need to buy oil now; we still have ⋯⋯⋯.",
-    "What is the difference between present perfect and past simple?"
+    "What is the difference between present perfect and past simple?",
+    "شرح قانون نيوتن الثاني في الفيزياء",
+    "كيف أحل معادلات الدرجة الثانية؟"
   ];
 
   return (
@@ -30,10 +32,10 @@ const SearchInterface = ({ onSearch, isLoading }: SearchInterfaceProps) => {
       <div className="text-center mb-6">
         <div className="flex items-center justify-center gap-2 mb-3">
           <Sparkles className="w-5 h-5 text-yellow-500" />
-          <h3 className="text-xl font-semibold text-gray-800">Ask Your Question</h3>
+          <h3 className="text-xl font-semibold text-gray-800">اطرح سؤالك</h3>
           <Sparkles className="w-5 h-5 text-yellow-500" />
         </div>
-        <p className="text-gray-600">Get instant answers and practice questions</p>
+        <p className="text-gray-600">احصل على إجابات فورية وأسئلة تدريبية</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -43,7 +45,7 @@ const SearchInterface = ({ onSearch, isLoading }: SearchInterfaceProps) => {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Type your question here..."
+            placeholder="اكتب سؤالك هنا..."
             className="pl-12 pr-4 py-6 text-lg border-2 border-blue-200 focus:border-blue-400 rounded-xl"
             disabled={isLoading}
           />
@@ -57,19 +59,19 @@ const SearchInterface = ({ onSearch, isLoading }: SearchInterfaceProps) => {
           {isLoading ? (
             <>
               <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-              Searching...
+              جاري البحث...
             </>
           ) : (
             <>
               <Search className="w-5 h-5 mr-2" />
-              Search & Learn
+              ابحث وتعلم
             </>
           )}
         </Button>
       </form>
 
       <div className="mt-6">
-        <p className="text-sm text-gray-600 mb-3">Try these examples:</p>
+        <p className="text-sm text-gray-600 mb-3">جرب هذه الأمثلة:</p>
         <div className="space-y-2">
           {exampleQueries.map((example, index) => (
             <button
