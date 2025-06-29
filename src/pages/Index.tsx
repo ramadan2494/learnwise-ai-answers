@@ -7,11 +7,12 @@ import SearchInterface from '../components/SearchInterface';
 import ResultsSection from '../components/ResultsSection';
 import CommunityPage from '../components/CommunityPage';
 import SessionsPage from '../components/SessionsPage';
+import MaterialsPage from '../components/MaterialsPage';
 import AuthModal from '../components/AuthModal';
 
 const Index = () => {
   const { user } = useAuth();
-  const [currentPage, setCurrentPage] = useState<'search' | 'community' | 'sessions'>('search');
+  const [currentPage, setCurrentPage] = useState<'search' | 'community' | 'sessions' | 'materials'>('search');
   const [searchResults, setSearchResults] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -125,6 +126,7 @@ const Index = () => {
             </>
           )}
 
+          {currentPage === 'materials' && <MaterialsPage />}
           {currentPage === 'community' && <CommunityPage />}
           {currentPage === 'sessions' && <SessionsPage />}
         </div>

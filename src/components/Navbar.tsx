@@ -1,13 +1,13 @@
 
 import React, { useState } from 'react';
-import { GraduationCap, User, LogOut, MessageSquare, Calendar, Search as SearchIcon } from 'lucide-react';
+import { GraduationCap, User, LogOut, MessageSquare, Calendar, Search as SearchIcon, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import AuthModal from './AuthModal';
 
 interface NavbarProps {
-  currentPage: 'search' | 'community' | 'sessions';
-  onPageChange: (page: 'search' | 'community' | 'sessions') => void;
+  currentPage: 'search' | 'community' | 'sessions' | 'materials';
+  onPageChange: (page: 'search' | 'community' | 'sessions' | 'materials') => void;
 }
 
 const Navbar = ({ currentPage, onPageChange }: NavbarProps) => {
@@ -52,6 +52,17 @@ const Navbar = ({ currentPage, onPageChange }: NavbarProps) => {
                 >
                   <SearchIcon className="w-4 h-4" />
                   البحث الذكي
+                </button>
+                <button
+                  onClick={() => onPageChange('materials')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+                    currentPage === 'materials'
+                      ? 'bg-orange-100 text-orange-700'
+                      : 'text-gray-600 hover:text-orange-600 hover:bg-orange-50'
+                  }`}
+                >
+                  <BookOpen className="w-4 h-4" />
+                  المواد والامتحانات
                 </button>
                 <button
                   onClick={() => onPageChange('community')}
