@@ -14,29 +14,44 @@ const Index = () => {
   const { user } = useAuth();
   const [currentPage, setCurrentPage] = useState<'search' | 'community' | 'sessions' | 'materials'>('search');
   const [searchResults, setSearchResults] = useState(null);
+  const [searchType, setSearchType] = useState<'exams' | 'tutorials'>('exams');
   const [isLoading, setIsLoading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
-  const handleSearch = async (query: string) => {
+  const handleSearch = async (query: string, type: 'exams' | 'tutorials') => {
     if (!user) {
       setShowAuthModal(true);
       return;
     }
 
     setIsLoading(true);
+    setSearchType(type);
+    
     try {
-      const response = await fetch('https://energetic-education-testing.up.railway.app/api/v1/ai/rag-answer', {
+      const endpoint = type === 'exams' 
+        ? 'https://energetic-education-testing.up.railway.app/api/v1/ai/rag-answer'
+        : 'https://energetic-education-testing.up.railway.app/api/v1/tutorials/rag-search';
+      
+      const requestBody = type === 'exams' 
+        ? {
+            query,
+            searchTypes: ["questions", "tutorials"],
+            maxResults: 10,
+            structured: true
+          }
+        : {
+            query,
+            maxResults: 10,
+            structured: true
+          };
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${user ? localStorage.getItem('token') : ''}`
         },
-        body: JSON.stringify({
-          query,
-          searchTypes: ["questions", "tutorials"],
-          maxResults: 10,
-          structured: true
-        })
+        body: JSON.stringify(requestBody)
       });
       
       const data = await response.json();
@@ -119,7 +134,7 @@ const Index = () => {
               {searchResults && (
                 <section className="px-4 pb-12">
                   <div className="container mx-auto max-w-6xl">
-                    <ResultsSection results={searchResults} />
+                    <ResultsSection results={searchResults} searchType={searchType} />
                   </div>
                 </section>
               )}
