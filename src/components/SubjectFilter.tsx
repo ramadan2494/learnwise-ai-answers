@@ -13,7 +13,7 @@ const SubjectFilter = ({ selectedSubject, onSubjectChange }: SubjectFilterProps)
   const { t, isRTL } = useLanguage();
 
   const subjects = [
-    { value: '', label: t('search.subject.all') },
+    { value: 'all', label: t('search.subject.all') },
     { value: 'English', label: 'English' },
     { value: 'Arabic', label: 'العربية' },
     { value: 'Math', label: 'الرياضيات' },
@@ -24,10 +24,15 @@ const SubjectFilter = ({ selectedSubject, onSubjectChange }: SubjectFilterProps)
     { value: 'Geography', label: 'الجغرافيا' },
   ];
 
+  const handleSubjectChange = (value: string) => {
+    // Convert 'all' back to empty string for the API
+    onSubjectChange(value === 'all' ? '' : value);
+  };
+
   return (
     <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
       <BookOpen className="w-4 h-4 text-blue-600" />
-      <Select value={selectedSubject} onValueChange={onSubjectChange}>
+      <Select value={selectedSubject || 'all'} onValueChange={handleSubjectChange}>
         <SelectTrigger className="w-48">
           <SelectValue placeholder={t('search.subject.filter')} />
         </SelectTrigger>
