@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Brain, Zap, BookOpen, Search } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import Navbar from '../components/Navbar';
 import SearchInterface from '../components/SearchInterface';
 import ResultsSection from '../components/ResultsSection';
@@ -12,13 +13,15 @@ import AuthModal from '../components/AuthModal';
 
 const Index = () => {
   const { user } = useAuth();
+  const { t, isRTL } = useLanguage();
   const [currentPage, setCurrentPage] = useState<'search' | 'community' | 'sessions' | 'materials'>('search');
   const [searchResults, setSearchResults] = useState(null);
   const [searchType, setSearchType] = useState<'exams' | 'tutorials'>('exams');
+  const [selectedSubject, setSelectedSubject] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
-  const handleSearch = async (query: string, type: 'exams' | 'tutorials') => {
+  const handleSearch = async (query: string, type: 'exams' | 'tutorials', examSearchType: 'rag' | 'fuzzy' = 'rag', subject: string = '') => {
     if (!user) {
       setShowAuthModal(true);
       return;
@@ -28,28 +31,34 @@ const Index = () => {
     setSearchType(type);
     
     try {
-      const endpoint = type === 'exams' 
-        ? 'https://energetic-education-testing.up.railway.app/api/v1/ai/rag-answer'
-        : 'https://energetic-education-testing.up.railway.app/api/v1/tutorials/rag-search';
-      
-      const requestBody = type === 'exams' 
-        ? {
-            query,
-            searchTypes: ["questions", "tutorials"],
-            maxResults: 10,
-            structured: true
-          }
-        : {
-            query,
-            maxResults: 10,
-            structured: true
-          };
+      let endpoint: string;
+      let requestBody: any;
+
+      if (type === 'exams') {
+        endpoint = 'https://energetic-education-testing.up.railway.app/api/v1/ai/exam-search';
+        requestBody = {
+          query,
+          searchType: examSearchType,
+          structured: true
+        };
+        
+        if (subject) {
+          requestBody.subject = subject;
+        }
+      } else {
+        endpoint = 'https://energetic-education-testing.up.railway.app/api/v1/tutorials/rag-search';
+        requestBody = {
+          query,
+          maxResults: 10,
+          structured: true
+        };
+      }
 
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user ? localStorage.getItem('token') : ''}`
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify(requestBody)
       });
@@ -66,7 +75,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
-      <Navbar currentPage={currentPage} onPageChange={setCurrentPage} />
+      <Navbar 
+        currentPage={currentPage} 
+        onPageChange={setCurrentPage}
+        selectedSubject={selectedSubject}
+        onSubjectChange={setSelectedSubject}
+      />
 
       {!user ? (
         // Landing page for non-authenticated users
@@ -96,16 +110,16 @@ const Index = () => {
                 مصممة خصيصاً لطلاب الثانوية العامة المصرية.
               </p>
 
-              <div className="flex flex-wrap justify-center gap-4 mb-8">
-                <div className="flex items-center gap-2 bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full border border-blue-200">
+              <div className={`flex flex-wrap justify-center gap-4 mb-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <div className={`flex items-center gap-2 bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full border border-blue-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <BookOpen className="w-4 h-4 text-blue-600" />
                   <span className="text-sm font-medium text-gray-700">متوافق مع المنهج</span>
                 </div>
-                <div className="flex items-center gap-2 bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full border border-green-200">
+                <div className={`flex items-center gap-2 bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full border border-green-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <Search className="w-4 h-4 text-green-600" />
                   <span className="text-sm font-medium text-gray-700">إجابات فورية</span>
                 </div>
-                <div className="flex items-center gap-2 bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full border border-purple-200">
+                <div className={`flex items-center gap-2 bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full border border-purple-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <Zap className="w-4 h-4 text-purple-600" />
                   <span className="text-sm font-medium text-gray-700">أسئلة تدريبية</span>
                 </div>
@@ -116,7 +130,11 @@ const Index = () => {
           {/* Search Interface for demo */}
           <section className="px-4 mb-8">
             <div className="container mx-auto max-w-4xl">
-              <SearchInterface onSearch={handleSearch} isLoading={isLoading} />
+              <SearchInterface 
+                onSearch={handleSearch} 
+                isLoading={isLoading}
+                selectedSubject={selectedSubject}
+              />
             </div>
           </section>
         </>
@@ -127,7 +145,11 @@ const Index = () => {
             <>
               <section className="px-4 mb-8">
                 <div className="container mx-auto max-w-4xl">
-                  <SearchInterface onSearch={handleSearch} isLoading={isLoading} />
+                  <SearchInterface 
+                    onSearch={handleSearch} 
+                    isLoading={isLoading}
+                    selectedSubject={selectedSubject}
+                  />
                 </div>
               </section>
 
@@ -150,7 +172,7 @@ const Index = () => {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-8 px-4 mt-auto">
         <div className="container mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
+          <div className={`flex items-center justify-center gap-2 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <Brain className="w-6 h-6 text-blue-400" />
             <span className="text-xl font-bold">LearnWise</span>
           </div>
