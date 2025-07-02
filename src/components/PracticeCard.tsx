@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Brain, Target, Star, CheckCircle2, XCircle, RotateCcw } from 'lucide-react';
+import { Brain, Target, Star, CheckCircle2, XCircle, RotateCcw, Calendar, GraduationCap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
@@ -11,6 +11,16 @@ interface PracticeCardProps {
     difficulty: string;
     topic: string;
     choices: string[];
+    examMeta?: {
+      id: string;
+      title: string;
+      subject: string;
+      year: number;
+      grade: string;
+      term: string;
+      exam_type?: string;
+    };
+    grade?: string;
   };
   questionNumber: number;
 }
@@ -97,6 +107,13 @@ const PracticeCard = ({ question, questionNumber }: PracticeCardProps) => {
             <Star className="w-3 h-3 mr-1" />
             {question.topic}
           </Badge>
+
+          {question.grade && (
+            <Badge variant="outline" className="text-xs">
+              <GraduationCap className="w-3 h-3 mr-1" />
+              Grade {question.grade}
+            </Badge>
+          )}
         </div>
       </div>
 
@@ -150,6 +167,30 @@ const PracticeCard = ({ question, questionNumber }: PracticeCardProps) => {
             );
           })}
         </div>
+
+        {/* Exam Information */}
+        {question.examMeta && (
+          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg p-4 border border-yellow-200 mb-6">
+            <div className="flex items-center gap-2 mb-2">
+              <Calendar className="w-4 h-4 text-orange-600" />
+              <h5 className="font-medium text-orange-800">Exam Information</h5>
+            </div>
+            <div className="space-y-1 text-sm">
+              <p className="text-gray-700">
+                <span className="font-medium">Subject:</span> {question.examMeta.subject}
+              </p>
+              <p className="text-gray-700">
+                <span className="font-medium">Year:</span> {question.examMeta.year}
+              </p>
+              <p className="text-gray-700">
+                <span className="font-medium">Grade:</span> {question.examMeta.grade}
+              </p>
+              <p className="text-gray-700">
+                <span className="font-medium">Term:</span> {question.examMeta.term || 'N/A'}
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Action Buttons */}
         <div className="flex gap-3">

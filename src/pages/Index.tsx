@@ -34,7 +34,7 @@ const Index = () => {
       let requestBody: any;
 
       if (type === 'exams') {
-        // Use the correct exam search endpoint
+        // Use the same endpoint for both RAG and fuzzy searches
         endpoint = 'https://energetic-education-testing.up.railway.app/api/v1/ai/exam-search';
         requestBody = {
           query,
@@ -68,8 +68,12 @@ const Index = () => {
         body: JSON.stringify(requestBody)
       });
       
+      console.log('Response status:', response.status);
+      
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        console.error('API Error Response:', errorText);
+        throw new Error(`HTTP error! status: ${response.status}, response: ${errorText}`);
       }
       
       const data = await response.json();
@@ -77,6 +81,11 @@ const Index = () => {
       setSearchResults(data);
     } catch (error) {
       console.error('Search error:', error);
+      // Show error to user or handle gracefully
+      setSearchResults({ 
+        error: true, 
+        message: error instanceof Error ? error.message : 'Search failed. Please try again.'
+      });
     } finally {
       setIsLoading(false);
     }
