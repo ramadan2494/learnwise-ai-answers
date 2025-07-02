@@ -42,7 +42,7 @@ const Index = () => {
           structured: true
         };
         
-        // Add subject filter if selected
+        // Always add subject filter - critical requirement
         if (subject) {
           requestBody.subject = subject;
         }
@@ -54,6 +54,11 @@ const Index = () => {
           maxResults: 10,
           structured: true
         };
+        
+        // Add subject for tutorials too if provided
+        if (subject) {
+          requestBody.subject = subject;
+        }
       }
 
       console.log('Making API request to:', endpoint);
@@ -92,7 +97,7 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50" dir={isRTL ? 'rtl' : 'ltr'}>
       <Navbar 
         currentPage={currentPage} 
         onPageChange={setCurrentPage}

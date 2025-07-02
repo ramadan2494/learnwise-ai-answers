@@ -33,12 +33,16 @@ const SubjectFilter = ({ selectedSubject, onSubjectChange }: SubjectFilterProps)
     <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
       <BookOpen className="w-4 h-4 text-blue-600" />
       <Select value={selectedSubject || 'all'} onValueChange={handleSubjectChange}>
-        <SelectTrigger className="w-48">
+        <SelectTrigger className={`w-48 ${isRTL ? 'text-right' : 'text-left'}`}>
           <SelectValue placeholder={t('search.subject.filter')} />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent align={isRTL ? 'end' : 'start'}>
           {subjects.map((subject) => (
-            <SelectItem key={subject.value} value={subject.value}>
+            <SelectItem 
+              key={subject.value} 
+              value={subject.value}
+              className={isRTL ? 'text-right' : 'text-left'}
+            >
               {subject.label}
             </SelectItem>
           ))}

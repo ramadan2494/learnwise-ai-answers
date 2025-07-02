@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Search, Loader2, Sparkles, BookOpen, FileQuestion, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Toggle } from '@/components/ui/toggle';
 import { useLanguage } from '@/contexts/LanguageContext';
 import SubjectFilter from './SubjectFilter';
 
@@ -46,7 +45,7 @@ const SearchInterface = ({ onSearch, isLoading, selectedSubject, onSubjectChange
   const currentExamples = searchType === 'exams' ? examQueries : tutorialQueries;
 
   return (
-    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-blue-200 shadow-lg">
+    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 border border-blue-200 shadow-lg">
       <div className="text-center mb-6">
         <div className={`flex items-center justify-center gap-2 mb-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <Sparkles className="w-5 h-5 text-yellow-500" />
@@ -77,7 +76,7 @@ const SearchInterface = ({ onSearch, isLoading, selectedSubject, onSubjectChange
           disabled={isLoading}
         >
           <FileQuestion className="w-4 h-4" />
-          {t('search.exams')}
+          <span className="text-sm font-medium">{t('search.exams')}</span>
         </button>
         <button
           type="button"
@@ -90,17 +89,19 @@ const SearchInterface = ({ onSearch, isLoading, selectedSubject, onSubjectChange
           disabled={isLoading}
         >
           <BookOpen className="w-4 h-4" />
-          {t('search.tutorials')}
+          <span className="text-sm font-medium">{t('search.tutorials')}</span>
         </button>
       </div>
 
-      {/* Exam Search Mode Toggle - Made More Visible */}
+      {/* Exam Search Mode Toggle */}
       {searchType === 'exams' && (
         <div className="mb-6 bg-gradient-to-r from-purple-50 to-blue-50 p-4 rounded-xl border border-purple-200">
           <div className="text-center mb-3">
-            <p className="text-sm font-medium text-gray-700 mb-2">اختر نوع البحث:</p>
+            <p className="text-sm font-medium text-gray-700 mb-2">
+              {isRTL ? 'اختر نوع البحث:' : 'Choose search type:'}
+            </p>
           </div>
-          <div className="flex items-center justify-center gap-6">
+          <div className={`flex items-center justify-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <button
               onClick={() => setExamSearchType('rag')}
               className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
@@ -137,8 +138,9 @@ const SearchInterface = ({ onSearch, isLoading, selectedSubject, onSubjectChange
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder={searchType === 'exams' ? t('search.placeholder.exams') : t('search.placeholder.tutorials')}
-            className={`py-6 text-lg border-2 border-blue-200 focus:border-blue-400 rounded-xl ${isRTL ? 'pr-12 pl-4 text-right' : 'pl-12 pr-4'}`}
+            className={`py-6 text-lg border-2 border-blue-200 focus:border-blue-400 rounded-xl ${isRTL ? 'pr-12 pl-4 text-right' : 'pl-12 pr-4 text-left'}`}
             disabled={isLoading}
+            dir={isRTL ? 'rtl' : 'ltr'}
           />
         </div>
         
@@ -152,21 +154,23 @@ const SearchInterface = ({ onSearch, isLoading, selectedSubject, onSubjectChange
           } ${isRTL ? 'flex-row-reverse' : ''}`}
         >
           {isLoading ? (
-            <>
-              <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-              {t('search.searching')}
-            </>
+            <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <Loader2 className="w-5 h-5 animate-spin" />
+              <span>{t('search.searching')}</span>
+            </div>
           ) : (
-            <>
-              <Search className="w-5 h-5 mr-2" />
-              {searchType === 'exams' ? t('search.button.exams') : t('search.button.tutorials')}
-            </>
+            <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <Search className="w-5 h-5" />
+              <span>{searchType === 'exams' ? t('search.button.exams') : t('search.button.tutorials')}</span>
+            </div>
           )}
         </Button>
       </form>
 
       <div className="mt-6">
-        <p className="text-sm text-gray-600 mb-3">جرب هذه الأمثلة:</p>
+        <p className={`text-sm text-gray-600 mb-3 ${isRTL ? 'text-right' : 'text-left'}`}>
+          {isRTL ? 'جرب هذه الأمثلة:' : 'Try these examples:'}
+        </p>
         <div className="space-y-2">
           {currentExamples.map((example, index) => (
             <button
@@ -174,6 +178,7 @@ const SearchInterface = ({ onSearch, isLoading, selectedSubject, onSubjectChange
               onClick={() => setQuery(example)}
               className={`block w-full p-3 bg-gray-50 hover:bg-blue-50 border border-gray-200 hover:border-blue-300 rounded-lg text-sm transition-colors duration-200 ${isRTL ? 'text-right' : 'text-left'}`}
               disabled={isLoading}
+              dir={isRTL ? 'rtl' : 'ltr'}
             >
               {example}
             </button>

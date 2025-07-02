@@ -42,6 +42,7 @@ const translations = {
     'grade.first': 'First Secondary',
     'grade.second': 'Second Secondary',
     'grade.third': 'Third Secondary',
+    'grade.grade': 'Grade',
   },
   ar: {
     // Navigation
@@ -76,6 +77,7 @@ const translations = {
     'grade.first': 'الصف الأول',
     'grade.second': 'الصف الثاني',
     'grade.third': 'الصف الثالث',
+    'grade.grade': 'الصف',
   }
 };
 
