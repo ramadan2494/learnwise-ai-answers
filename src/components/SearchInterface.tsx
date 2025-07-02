@@ -5,14 +5,16 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Toggle } from '@/components/ui/toggle';
 import { useLanguage } from '@/contexts/LanguageContext';
+import SubjectFilter from './SubjectFilter';
 
 interface SearchInterfaceProps {
   onSearch: (query: string, searchType: 'exams' | 'tutorials', examSearchType?: 'rag' | 'fuzzy', subject?: string) => void;
   isLoading: boolean;
-  selectedSubject?: string;
+  selectedSubject: string;
+  onSubjectChange: (subject: string) => void;
 }
 
-const SearchInterface = ({ onSearch, isLoading, selectedSubject = '' }: SearchInterfaceProps) => {
+const SearchInterface = ({ onSearch, isLoading, selectedSubject, onSubjectChange }: SearchInterfaceProps) => {
   const [query, setQuery] = useState('');
   const [searchType, setSearchType] = useState<'exams' | 'tutorials'>('exams');
   const [examSearchType, setExamSearchType] = useState<'rag' | 'fuzzy'>('rag');
@@ -54,6 +56,14 @@ const SearchInterface = ({ onSearch, isLoading, selectedSubject = '' }: SearchIn
         <p className="text-gray-600">{t('search.subtitle')}</p>
       </div>
 
+      {/* Subject Filter */}
+      <div className="mb-6 flex justify-center">
+        <SubjectFilter 
+          selectedSubject={selectedSubject}
+          onSubjectChange={onSubjectChange}
+        />
+      </div>
+
       {/* Search Type Toggle */}
       <div className="flex mb-6 bg-gray-100 rounded-xl p-1">
         <button
@@ -84,24 +94,37 @@ const SearchInterface = ({ onSearch, isLoading, selectedSubject = '' }: SearchIn
         </button>
       </div>
 
-      {/* Exam Search Mode Toggle */}
+      {/* Exam Search Mode Toggle - Made More Visible */}
       {searchType === 'exams' && (
-        <div className="mb-6">
-          <div className={`flex items-center justify-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <Zap className="w-4 h-4 text-purple-600" />
-              <span className="text-sm font-medium text-gray-700">{t('search.deepai')}</span>
-            </div>
-            <Toggle
-              pressed={examSearchType === 'rag'}
-              onPressedChange={(pressed) => setExamSearchType(pressed ? 'rag' : 'fuzzy')}
+        <div className="mb-6 bg-gradient-to-r from-purple-50 to-blue-50 p-4 rounded-xl border border-purple-200">
+          <div className="text-center mb-3">
+            <p className="text-sm font-medium text-gray-700 mb-2">اختر نوع البحث:</p>
+          </div>
+          <div className="flex items-center justify-center gap-6">
+            <button
+              onClick={() => setExamSearchType('rag')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+                examSearchType === 'rag'
+                  ? 'bg-purple-600 text-white shadow-lg'
+                  : 'bg-white text-purple-600 border border-purple-300 hover:bg-purple-50'
+              } ${isRTL ? 'flex-row-reverse' : ''}`}
               disabled={isLoading}
-              className="data-[state=on]:bg-purple-100 data-[state=on]:text-purple-800"
-            />
-            <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <Search className="w-4 h-4 text-blue-600" />
-              <span className="text-sm font-medium text-gray-700">{t('search.ai')}</span>
-            </div>
+            >
+              <Zap className="w-4 h-4" />
+              <span className="text-sm font-medium">{t('search.deepai')}</span>
+            </button>
+            <button
+              onClick={() => setExamSearchType('fuzzy')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+                examSearchType === 'fuzzy'
+                  ? 'bg-blue-600 text-white shadow-lg'
+                  : 'bg-white text-blue-600 border border-blue-300 hover:bg-blue-50'
+              } ${isRTL ? 'flex-row-reverse' : ''}`}
+              disabled={isLoading}
+            >
+              <Search className="w-4 h-4" />
+              <span className="text-sm font-medium">{t('search.ai')}</span>
+            </button>
           </div>
         </div>
       )}

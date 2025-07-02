@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Brain, Zap, BookOpen, Search } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
@@ -35,17 +34,20 @@ const Index = () => {
       let requestBody: any;
 
       if (type === 'exams') {
+        // Use the correct exam search endpoint
         endpoint = 'https://energetic-education-testing.up.railway.app/api/v1/ai/exam-search';
         requestBody = {
           query,
-          searchType: examSearchType,
+          searchType: examSearchType, // 'rag' for deep AI, 'fuzzy' for regular AI
           structured: true
         };
         
+        // Add subject filter if selected
         if (subject) {
           requestBody.subject = subject;
         }
       } else {
+        // Keep existing tutorial endpoint
         endpoint = 'https://energetic-education-testing.up.railway.app/api/v1/tutorials/rag-search';
         requestBody = {
           query,
@@ -53,6 +55,9 @@ const Index = () => {
           structured: true
         };
       }
+
+      console.log('Making API request to:', endpoint);
+      console.log('Request body:', JSON.stringify(requestBody, null, 2));
 
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -63,9 +68,13 @@ const Index = () => {
         body: JSON.stringify(requestBody)
       });
       
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
+      console.log('API Response:', data);
       setSearchResults(data);
-      console.log('Search results:', data);
     } catch (error) {
       console.error('Search error:', error);
     } finally {
@@ -78,8 +87,6 @@ const Index = () => {
       <Navbar 
         currentPage={currentPage} 
         onPageChange={setCurrentPage}
-        selectedSubject={selectedSubject}
-        onSubjectChange={setSelectedSubject}
       />
 
       {!user ? (
@@ -134,6 +141,7 @@ const Index = () => {
                 onSearch={handleSearch} 
                 isLoading={isLoading}
                 selectedSubject={selectedSubject}
+                onSubjectChange={setSelectedSubject}
               />
             </div>
           </section>
@@ -149,6 +157,7 @@ const Index = () => {
                     onSearch={handleSearch} 
                     isLoading={isLoading}
                     selectedSubject={selectedSubject}
+                    onSubjectChange={setSelectedSubject}
                   />
                 </div>
               </section>

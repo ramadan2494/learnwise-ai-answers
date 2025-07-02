@@ -6,16 +6,13 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import AuthModal from './AuthModal';
 import LanguageToggle from './LanguageToggle';
-import SubjectFilter from './SubjectFilter';
 
 interface NavbarProps {
   currentPage: 'search' | 'community' | 'sessions' | 'materials';
   onPageChange: (page: 'search' | 'community' | 'sessions' | 'materials') => void;
-  selectedSubject: string;
-  onSubjectChange: (subject: string) => void;
 }
 
-const Navbar = ({ currentPage, onPageChange, selectedSubject, onSubjectChange }: NavbarProps) => {
+const Navbar = ({ currentPage, onPageChange }: NavbarProps) => {
   const { user, logout } = useAuth();
   const { t, isRTL } = useLanguage();
   const [showAuthModal, setShowAuthModal] = useState(false);
@@ -113,13 +110,6 @@ const Navbar = ({ currentPage, onPageChange, selectedSubject, onSubjectChange }:
                   <div className={`${isRTL ? 'text-left' : 'text-right'}`}>
                     <p className="font-medium text-gray-800">{user.fullName}</p>
                     <p className="text-sm text-gray-600">{getGradeText(user.grade)} الثانوي</p>
-                    {/* Subject Filter under user name */}
-                    <div className="mt-2">
-                      <SubjectFilter 
-                        selectedSubject={selectedSubject}
-                        onSubjectChange={onSubjectChange}
-                      />
-                    </div>
                   </div>
                   <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
                     <User className="w-5 h-5 text-white" />
