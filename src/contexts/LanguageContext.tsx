@@ -37,6 +37,20 @@ const translations = {
     'results.search.results': 'Search Results',
     'results.tutorial.sources': 'Tutorial Sources',
     'results.practice.questions': 'Practice Questions',
+    // Exam fields
+    'exam.mode': 'Mode',
+    'exam.type': 'Type',
+    'exam.version': 'Version',
+    'exam.year': 'Year',
+    'exam.subject': 'Subject',
+    'exam.grade': 'Grade',
+    // Question fields
+    'question.number': 'Question',
+    'question.answer': 'Answer',
+    'question.verified': 'Verified by teacher (trusted)',
+    'question.choices': 'Answer Choices',
+    'question.difficulty': 'Difficulty',
+    'question.topic': 'Topic',
     // General
     'coming.soon': 'Coming Soon',
     'grade.first': 'First Secondary',
@@ -72,6 +86,20 @@ const translations = {
     'results.search.results': 'نتائج البحث',
     'results.tutorial.sources': 'مصادر الشروحات',
     'results.practice.questions': 'أسئلة تدريبية',
+    // Exam fields
+    'exam.mode': 'النمط',
+    'exam.type': 'النوع',
+    'exam.version': 'الإصدار',
+    'exam.year': 'السنة',
+    'exam.subject': 'المادة',
+    'exam.grade': 'الصف',
+    // Question fields
+    'question.number': 'السؤال',
+    'question.answer': 'الإجابة',
+    'question.verified': 'تمت المراجعة بواسطة المعلم (موثوق)',
+    'question.choices': 'خيارات الإجابة',
+    'question.difficulty': 'المستوى',
+    'question.topic': 'الموضوع',
     // General
     'coming.soon': 'قريبا',
     'grade.first': 'الصف الأول',
