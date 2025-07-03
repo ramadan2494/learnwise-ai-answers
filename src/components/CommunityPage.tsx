@@ -191,13 +191,13 @@ const CommunityPage = () => {
     const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
     
     if (diffInMinutes < 1) return t('time.now');
-    if (diffInMinutes < 60) return t('time.minutesAgo', { count: diffInMinutes });
+    if (diffInMinutes < 60) return `${diffInMinutes} ${t('time.minutesAgo')}`;
     
     const diffInHours = Math.floor(diffInMinutes / 60);
-    if (diffInHours < 24) return t('time.hoursAgo', { count: diffInHours });
+    if (diffInHours < 24) return `${diffInHours} ${t('time.hoursAgo')}`;
     
     const diffInDays = Math.floor(diffInHours / 24);
-    return t('time.daysAgo', { count: diffInDays });
+    return `${diffInDays} ${t('time.daysAgo')}`;
   };
 
   const getGradeDisplay = (grade?: number) => {
