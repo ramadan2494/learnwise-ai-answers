@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface LanguageContextType {
@@ -57,6 +56,45 @@ const translations = {
     'grade.second': 'Second Secondary',
     'grade.third': 'Third Secondary',
     'grade.grade': 'Grade',
+    community: {
+      title: 'Student Community',
+      subtitle: 'Ask questions and help fellow students learn',
+      askQuestion: 'Ask a Question',
+      newPost: 'New Post',
+      postAboutQuestion: 'Discuss Question',
+      postToDiscussion: 'Post to Community',
+      discussing: 'Discussing',
+      questionContext: 'Question Context',
+      relatedQuestion: 'Related Question',
+      postType: 'Post Type',
+      discussion: 'Discussion',
+      question: 'Question',
+      content: 'Content',
+      contentPlaceholder: 'Share your thoughts or ask a question...',
+      post: 'Post',
+      posting: 'Posting...',
+      replies: 'replies',
+      viewDetails: 'View Details',
+      noPosts: 'No posts yet',
+      beFirst: 'Be the first to start a discussion!',
+      loginRequired: 'Please log in to view and participate in community discussions.',
+      error: {
+        fetchFailed: 'Failed to load community posts',
+        postFailed: 'Failed to create post. Please try again.'
+      }
+    },
+    time: {
+      now: 'just now',
+      minutesAgo: '{{count}} minutes ago',
+      hoursAgo: '{{count}} hours ago',
+      daysAgo: '{{count}} days ago'
+    },
+    auth: {
+      required: 'Authentication Required'
+    },
+    common: {
+      cancel: 'Cancel'
+    }
   },
   ar: {
     // Navigation
@@ -106,6 +144,45 @@ const translations = {
     'grade.second': 'الصف الثاني',
     'grade.third': 'الصف الثالث',
     'grade.grade': 'الصف',
+    community: {
+      title: 'مجتمع الطلاب',
+      subtitle: 'اطرح أسئلتك وساعد زملاءك في التعلم',
+      askQuestion: 'اطرح سؤالاً',
+      newPost: 'منشور جديد',
+      postAboutQuestion: 'ناقش السؤال',
+      postToDiscussion: 'انشر في المجتمع',
+      discussing: 'مناقشة',
+      questionContext: 'سياق السؤال',
+      relatedQuestion: 'السؤال المرتبط',
+      postType: 'نوع المنشور',
+      discussion: 'نقاش',
+      question: 'سؤال',
+      content: 'المحتوى',
+      contentPlaceholder: 'شارك أفكارك أو اطرح سؤالاً...',
+      post: 'نشر',
+      posting: 'جاري النشر...',
+      replies: 'ردود',
+      viewDetails: 'عرض التفاصيل',
+      noPosts: 'لا توجد منشورات حتى الآن',
+      beFirst: 'كن أول من يبدأ النقاش!',
+      loginRequired: 'يرجى تسجيل الدخول لعرض والمشاركة في مناقشات المجتمع.',
+      error: {
+        fetchFailed: 'فشل في تحميل منشورات المجتمع',
+        postFailed: 'فشل في إنشاء المنشور. يرجى المحاولة مرة أخرى.'
+      }
+    },
+    time: {
+      now: 'الآن',
+      minutesAgo: 'منذ {{count}} دقيقة',
+      hoursAgo: 'منذ {{count}} ساعة',
+      daysAgo: 'منذ {{count}} يوم'
+    },
+    auth: {
+      required: 'مطلوب تسجيل الدخول'
+    },
+    common: {
+      cancel: 'إلغاء'
+    }
   }
 };
 

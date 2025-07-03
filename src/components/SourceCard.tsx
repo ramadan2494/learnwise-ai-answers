@@ -3,6 +3,8 @@ import React from 'react';
 import { FileText, GraduationCap, Sparkles, CheckCircle } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import ExamMetadataCard from './ExamMetadataCard';
+import VerificationBadge from './VerificationBadge';
+import PostToCommunityButton from './PostToCommunityButton';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface SourceCardProps {
@@ -14,6 +16,9 @@ interface SourceCardProps {
     similarity: number;
     choices?: string[];
     grade: string;
+    question_number?: number;
+    question_answer?: string;
+    verified_by_teacher?: boolean;
     examMeta?: {
       id: string;
       title: string;
@@ -43,9 +48,29 @@ const SourceCard = ({ source }: SourceCardProps) => {
           </div>
           
           <div className="flex-1 min-w-0">
-            <h4 className={`font-semibold text-gray-800 mb-2 ${isRTL ? 'text-right' : 'text-left'}`}>
-              {source.title}
-            </h4>
+            <div className={`flex items-start justify-between mb-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <h4 className={`font-semibold text-gray-800 ${isRTL ? 'text-right' : 'text-left'} flex-1`}>
+                {source.title}
+                {source.question_number && (
+                  <span className="text-sm text-blue-600 ml-2">
+                    #{source.question_number}
+                  </span>
+                )}
+              </h4>
+              <div className={`flex items-center gap-2 ${isRTL ? 'mr-3' : 'ml-3'}`}>
+                <VerificationBadge verified={source.verified_by_teacher || false} />
+                <PostToCommunityButton
+                  question={{
+                    id: source.id,
+                    content: source.content,
+                    subject: source.examMeta?.subject,
+                    choices: source.choices,
+                    title: source.title
+                  }}
+                  variant="icon"
+                />
+              </div>
+            </div>
             
             <div className={`flex flex-wrap items-center gap-2 ${isRTL ? 'justify-end' : 'justify-start'}`}>
               <Badge variant="secondary" className="text-xs">
@@ -78,6 +103,19 @@ const SourceCard = ({ source }: SourceCardProps) => {
             {source.content}
           </p>
         </div>
+
+        {/* Question Answer */}
+        {source.question_answer && (
+          <div className="mb-4 bg-green-50 border border-green-200 rounded-lg p-3">
+            <h5 className={`font-medium text-green-800 mb-2 flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <CheckCircle className="w-4 h-4 text-green-600" />
+              {t('question.correctAnswer')}:
+            </h5>
+            <p className={`text-green-700 ${isRTL ? 'text-right' : 'text-left'}`}>
+              {source.question_answer}
+            </p>
+          </div>
+        )}
 
         {/* Choices */}
         {source.choices && source.choices.length > 0 && (

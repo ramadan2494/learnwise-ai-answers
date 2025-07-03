@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Brain, Zap, BookOpen, Search } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -19,6 +19,15 @@ const Index = () => {
   const [selectedSubject, setSelectedSubject] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+
+  // Check URL params for community navigation
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get('tab');
+    if (tab === 'community') {
+      setCurrentPage('community');
+    }
+  }, []);
 
   const handleSearch = async (query: string, type: 'exams' | 'tutorials', examSearchType: 'rag' | 'fuzzy' = 'rag', subject: string = '') => {
     if (!user) {
