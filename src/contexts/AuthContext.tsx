@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = async (email: string, password: string): Promise<boolean> => {
     setIsLoading(true);
     try {
-      const response = await fetch('https://energetic-education-testing.up.railway.app/api/v1/auth/login', {
+      const response = await fetch('https://insightful-youth-production-v2.up.railway.app/api/v1/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const register = async (email: string, password: string, fullName: string, grade: number): Promise<boolean> => {
     setIsLoading(true);
     try {
-      const response = await fetch('https://energetic-education-testing.up.railway.app/api/v1/auth/register', {
+      const response = await fetch('https://insightful-youth-production-v2.up.railway.app/api/v1/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

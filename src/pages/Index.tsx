@@ -35,7 +35,7 @@ const Index = () => {
 
       if (type === 'exams') {
         // Use the same endpoint for both RAG and fuzzy searches
-        endpoint = 'https://energetic-education-testing.up.railway.app/api/v1/ai/exam-search';
+        endpoint = 'https://insightful-youth-production-v2.up.railway.app/api/v1/ai/exam-search';
         requestBody = {
           query,
           searchType: examSearchType, // 'rag' for deep AI, 'fuzzy' for regular AI
@@ -48,7 +48,7 @@ const Index = () => {
         }
       } else {
         // Keep existing tutorial endpoint
-        endpoint = 'https://energetic-education-testing.up.railway.app/api/v1/tutorials/rag-search';
+        endpoint = 'https://insightful-youth-production-v2.up.railway.app/api/v1/tutorials/rag-search';
         requestBody = {
           query,
           maxResults: 10,
