@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface LanguageContextType {
@@ -46,6 +47,7 @@ const translations = {
     // Question fields
     'question.number': 'Question',
     'question.answer': 'Answer',
+    'question.correctAnswer': 'Correct Answer',
     'question.verified': 'Verified by teacher (trusted)',
     'question.choices': 'Answer Choices',
     'question.difficulty': 'Difficulty',
@@ -56,45 +58,39 @@ const translations = {
     'grade.second': 'Second Secondary',
     'grade.third': 'Third Secondary',
     'grade.grade': 'Grade',
-    community: {
-      title: 'Student Community',
-      subtitle: 'Ask questions and help fellow students learn',
-      askQuestion: 'Ask a Question',
-      newPost: 'New Post',
-      postAboutQuestion: 'Discuss Question',
-      postToDiscussion: 'Post to Community',
-      discussing: 'Discussing',
-      questionContext: 'Question Context',
-      relatedQuestion: 'Related Question',
-      postType: 'Post Type',
-      discussion: 'Discussion',
-      question: 'Question',
-      content: 'Content',
-      contentPlaceholder: 'Share your thoughts or ask a question...',
-      post: 'Post',
-      posting: 'Posting...',
-      replies: 'replies',
-      viewDetails: 'View Details',
-      noPosts: 'No posts yet',
-      beFirst: 'Be the first to start a discussion!',
-      loginRequired: 'Please log in to view and participate in community discussions.',
-      error: {
-        fetchFailed: 'Failed to load community posts',
-        postFailed: 'Failed to create post. Please try again.'
-      }
-    },
-    time: {
-      now: 'just now',
-      minutesAgo: '{{count}} minutes ago',
-      hoursAgo: '{{count}} hours ago',
-      daysAgo: '{{count}} days ago'
-    },
-    auth: {
-      required: 'Authentication Required'
-    },
-    common: {
-      cancel: 'Cancel'
-    }
+    // Community
+    'community.title': 'Student Community',
+    'community.subtitle': 'Ask questions and help fellow students learn',
+    'community.askQuestion': 'Ask a Question',
+    'community.newPost': 'New Post',
+    'community.postAboutQuestion': 'Discuss Question',
+    'community.postToDiscussion': 'Post to Community',
+    'community.discussing': 'Discussing',
+    'community.questionContext': 'Question Context',
+    'community.relatedQuestion': 'Related Question',
+    'community.postType': 'Post Type',
+    'community.discussion': 'Discussion',
+    'community.question': 'Question',
+    'community.content': 'Content',
+    'community.contentPlaceholder': 'Share your thoughts or ask a question...',
+    'community.post': 'Post',
+    'community.posting': 'Posting...',
+    'community.replies': 'replies',
+    'community.viewDetails': 'View Details',
+    'community.noPosts': 'No posts yet',
+    'community.beFirst': 'Be the first to start a discussion!',
+    'community.loginRequired': 'Please log in to view and participate in community discussions.',
+    'community.error.fetchFailed': 'Failed to load community posts',
+    'community.error.postFailed': 'Failed to create post. Please try again.',
+    // Time
+    'time.now': 'just now',
+    'time.minutesAgo': 'minutes ago',
+    'time.hoursAgo': 'hours ago',
+    'time.daysAgo': 'days ago',
+    // Auth
+    'auth.required': 'Authentication Required',
+    // Common
+    'common.cancel': 'Cancel'
   },
   ar: {
     // Navigation
@@ -134,6 +130,7 @@ const translations = {
     // Question fields
     'question.number': 'السؤال',
     'question.answer': 'الإجابة',
+    'question.correctAnswer': 'الإجابة الصحيحة',
     'question.verified': 'تمت المراجعة بواسطة المعلم (موثوق)',
     'question.choices': 'خيارات الإجابة',
     'question.difficulty': 'المستوى',
@@ -144,45 +141,39 @@ const translations = {
     'grade.second': 'الصف الثاني',
     'grade.third': 'الصف الثالث',
     'grade.grade': 'الصف',
-    community: {
-      title: 'مجتمع الطلاب',
-      subtitle: 'اطرح أسئلتك وساعد زملاءك في التعلم',
-      askQuestion: 'اطرح سؤالاً',
-      newPost: 'منشور جديد',
-      postAboutQuestion: 'ناقش السؤال',
-      postToDiscussion: 'انشر في المجتمع',
-      discussing: 'مناقشة',
-      questionContext: 'سياق السؤال',
-      relatedQuestion: 'السؤال المرتبط',
-      postType: 'نوع المنشور',
-      discussion: 'نقاش',
-      question: 'سؤال',
-      content: 'المحتوى',
-      contentPlaceholder: 'شارك أفكارك أو اطرح سؤالاً...',
-      post: 'نشر',
-      posting: 'جاري النشر...',
-      replies: 'ردود',
-      viewDetails: 'عرض التفاصيل',
-      noPosts: 'لا توجد منشورات حتى الآن',
-      beFirst: 'كن أول من يبدأ النقاش!',
-      loginRequired: 'يرجى تسجيل الدخول لعرض والمشاركة في مناقشات المجتمع.',
-      error: {
-        fetchFailed: 'فشل في تحميل منشورات المجتمع',
-        postFailed: 'فشل في إنشاء المنشور. يرجى المحاولة مرة أخرى.'
-      }
-    },
-    time: {
-      now: 'الآن',
-      minutesAgo: 'منذ {{count}} دقيقة',
-      hoursAgo: 'منذ {{count}} ساعة',
-      daysAgo: 'منذ {{count}} يوم'
-    },
-    auth: {
-      required: 'مطلوب تسجيل الدخول'
-    },
-    common: {
-      cancel: 'إلغاء'
-    }
+    // Community
+    'community.title': 'مجتمع الطلاب',
+    'community.subtitle': 'اطرح أسئلتك وساعد زملاءك في التعلم',
+    'community.askQuestion': 'اطرح سؤالاً',
+    'community.newPost': 'منشور جديد',
+    'community.postAboutQuestion': 'ناقش السؤال',
+    'community.postToDiscussion': 'انشر في المجتمع',
+    'community.discussing': 'مناقشة',
+    'community.questionContext': 'سياق السؤال',
+    'community.relatedQuestion': 'السؤال المرتبط',
+    'community.postType': 'نوع المنشور',
+    'community.discussion': 'نقاش',
+    'community.question': 'سؤال',
+    'community.content': 'المحتوى',
+    'community.contentPlaceholder': 'شارك أفكارك أو اطرح سؤالاً...',
+    'community.post': 'نشر',
+    'community.posting': 'جاري النشر...',
+    'community.replies': 'ردود',
+    'community.viewDetails': 'عرض التفاصيل',
+    'community.noPosts': 'لا توجد منشورات حتى الآن',
+    'community.beFirst': 'كن أول من يبدأ النقاش!',
+    'community.loginRequired': 'يرجى تسجيل الدخول لعرض والمشاركة في مناقشات المجتمع.',
+    'community.error.fetchFailed': 'فشل في تحميل منشورات المجتمع',
+    'community.error.postFailed': 'فشل في إنشاء المنشور. يرجى المحاولة مرة أخرى.',
+    // Time
+    'time.now': 'الآن',
+    'time.minutesAgo': 'دقيقة مضت',
+    'time.hoursAgo': 'ساعة مضت',
+    'time.daysAgo': 'يوم مضى',
+    // Auth
+    'auth.required': 'مطلوب تسجيل الدخول',
+    // Common
+    'common.cancel': 'إلغاء'
   }
 };
 
@@ -192,7 +183,19 @@ export const LanguageProvider = ({ children }: { children: React.ReactNode }) =>
   const [language, setLanguage] = useState<'ar' | 'en'>('ar');
 
   const t = (key: string): string => {
-    return translations[language][key] || key;
+    const keys = key.split('.');
+    let value: any = translations[language];
+    
+    for (const k of keys) {
+      if (value && typeof value === 'object' && k in value) {
+        value = value[k];
+      } else {
+        console.warn(`Translation key not found: ${key}`);
+        return key;
+      }
+    }
+    
+    return typeof value === 'string' ? value : key;
   };
 
   const isRTL = language === 'ar';
