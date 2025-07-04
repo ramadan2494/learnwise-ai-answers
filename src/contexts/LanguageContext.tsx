@@ -87,6 +87,12 @@ const translations = {
     'time.minutesAgo': 'minutes ago',
     'time.hoursAgo': 'hours ago',
     'time.daysAgo': 'days ago',
+    'time.minute': 'minute',
+    'time.minutes': 'minutes',
+    'time.hour': 'hour',
+    'time.hours': 'hours',
+    'time.day': 'day',
+    'time.days': 'days',
     // Auth
     'auth.required': 'Authentication Required',
     // Common
@@ -137,9 +143,9 @@ const translations = {
     'question.topic': 'الموضوع',
     // General
     'coming.soon': 'قريبا',
-    'grade.first': 'الصف الأول',
-    'grade.second': 'الصف الثاني',
-    'grade.third': 'الصف الثالث',
+    'grade.first': 'الأول الثانوي',
+    'grade.second': 'الثاني الثانوي',
+    'grade.third': 'الثالث الثانوي',
     'grade.grade': 'الصف',
     // Community
     'community.title': 'مجتمع الطلاب',
@@ -167,9 +173,15 @@ const translations = {
     'community.error.postFailed': 'فشل في إنشاء المنشور. يرجى المحاولة مرة أخرى.',
     // Time
     'time.now': 'الآن',
-    'time.minutesAgo': 'دقيقة مضت',
-    'time.hoursAgo': 'ساعة مضت',
-    'time.daysAgo': 'يوم مضى',
+    'time.minutesAgo': 'دقائق مضت',
+    'time.hoursAgo': 'ساعات مضت',
+    'time.daysAgo': 'أيام مضت',
+    'time.minute': 'دقيقة',
+    'time.minutes': 'دقائق',
+    'time.hour': 'ساعة',
+    'time.hours': 'ساعات',
+    'time.day': 'يوم',
+    'time.days': 'أيام',
     // Auth
     'auth.required': 'مطلوب تسجيل الدخول',
     // Common

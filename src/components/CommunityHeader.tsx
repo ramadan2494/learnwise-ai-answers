@@ -30,7 +30,7 @@ const CommunityHeader = ({ onNewPost, prefilledQuestion }: CommunityHeaderProps)
         ) : (
           <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <Plus className="w-4 h-4" />
-            {t('community.askQuestion')}
+            {t('community.newPost')}
           </div>
         )}
       </Button>
